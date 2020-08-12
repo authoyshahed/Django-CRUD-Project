@@ -1,0 +1,28 @@
+{% extends 'first_app/base.html' %}
+
+{% block body_block %}
+<h3>Album List</h3>
+<h4>Artist Name: {{artist_info.first_name}} {{artist_info.last_name}}</h4>
+<h4>Artist Instrument: {{artist_info.instrument}}</h4>
+<h3>Artist Rating: {{artist_rating.num_stars__avg}}</h3>
+<a href="{% url 'first_app:edit_artist' artist_id=artist_info.id %}" class="btn btn-success btn-sm">Edit</a>
+<h3>Album List:</h3>
+<table class="table table-bordered">
+  <tr>
+    <th>Name</th>
+    <th>Release List</th>
+    <th>Num stars</th>
+  </tr>
+  {% for album_info in album_list %}
+  <tr>
+    <td><a href="{% url 'first_app:edit_album' album_id=album_info.id %}">{{album_info.name}}</a></td>
+    <td>{{album_info.release_date|date:'M d,Y'}}</td>
+    <td>{{album_info.num_stars}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<br>
+<a href="{% url 'first_app:delete_musician' artist_id=artist_info.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete Musician</a>
+
+{% endblock %}
